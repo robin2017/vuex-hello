@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuex"></script>
+</head>
+<body>
+
+<div id="app">
+    <p>{{ count }}</p>
+    <p>
+        <button @click="increment">+</button>
+        <button @click="decrement">-</button>
+    </p>
+</div>
+</body>
+<script>
+    const store = new Vuex.Store({
+        state: {
+            count: 0
+        },
+        mutations: {
+            increment: state => state.count++,
+            decrement: state => state.count--
+        }
+    });
+    new Vue({
+        el: '#app',
+        store,
+        computed: {
+            count () {
+                //获取状态从store.state
+                return this.$store.state.count
+            }
+        },
+        methods: {
+            increment () {
+               //改变状态commit给store.mutations
+                this.$store.commit('increment')
+            },
+            decrement () {
+                this.$store.commit('decrement')
+            }
+        }
+    })
+</script>
+</html>
