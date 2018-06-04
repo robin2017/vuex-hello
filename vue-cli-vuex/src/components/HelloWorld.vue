@@ -1,33 +1,55 @@
 <template>
 
     <div id="app">
-        <p>{{ count }}</p>
+        <p>{{ count1 }}</p>
+        <p>ff{{double1}}</p>
         <p>
             <button @click="increment">+</button>
             <button @click="decrement">-</button>
         </p>
+
     </div>
 </template>
 
 <script>
-    import {mapState} from 'vuex'
+    import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
     export default {
-//        computed: {
-//            count () {
-//                //获取状态从store.state
-//                return this.$store.state.count
-//            }
-//        },
-        computed: mapState({
-            count: state => state.count,
-        }),
+        computed: {
+            //state的映射为函数映射
+            ...mapState({
+                count1: (state)=>state.count
+            }),
+            //getter的映射为变量映射
+            ...mapGetters({
+                double1: 'double'
+            })
+        },
         methods: {
+            ...mapMutations({
+                decrement1: 'decrement'
+            }),
+            ...mapActions([
+                'incrementSync',
+                'incrementAsync'
+            ]),
             increment () {
-                //改变状态commit给store.mutations
-                this.$store.commit('increment')
+                //1、mutations方式改变状态
+                //this.$store.commit('increment', {amount: 1})
+                //2、action同步方式改变状态
+                //this.$store.dispatch('incrementSync')
+                //3、action异步方式改变状态
+                //this.$store.dispatch('incrementAsync')
+                //4、异步方式同步化(外层必须是action且返回promise，内层随意)
+                this.$store.dispatch('actionA2Add').then(()=> {
+                    //4.1、mutation同步(随意)
+                    //this.$store.commit('decrement1');
+                    //4.2、action异步(随意)
+                    this.$store.dispatch('decrementAsync');
+                })
             },
             decrement () {
-                this.$store.commit('decrement')
+                // this.$store.commit('decrement', {amount: 2})
+                this.decrement1({amount: 2})
             }
         }
     }
