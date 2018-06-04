@@ -25,6 +25,9 @@ const store = new Vuex.Store({
         decrement(state, payload){
             state.count -= payload.amount;
         },
+        increment2(state, payload){
+            state.count += 2;
+        },
         decrement1(state){
             state.count -= 1;
         }
@@ -55,6 +58,13 @@ const store = new Vuex.Store({
                 }, 1000)
             })
         },
+        async actionA ({commit}) {
+            commit('increment2')
+        },
+        async actionB ({dispatch, commit}) {
+            await dispatch('actionA'); // 等待 actionA 完成
+            dispatch('decrementAsync')
+        }
     }
 });
 

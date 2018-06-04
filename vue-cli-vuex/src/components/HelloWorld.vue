@@ -39,13 +39,15 @@
                 //this.$store.dispatch('incrementSync')
                 //3、action异步方式改变状态
                 //this.$store.dispatch('incrementAsync')
-                //4、异步方式同步化(外层必须是action且返回promise，内层随意)
-                this.$store.dispatch('actionA2Add').then(()=> {
-                    //4.1、mutation同步(随意)
-                    //this.$store.commit('decrement1');
-                    //4.2、action异步(随意)
-                    this.$store.dispatch('decrementAsync');
-                })
+                //4、action组合-回调(外层必须是action且返回promise，内层随意)
+//                this.$store.dispatch('actionA2Add').then(()=> {
+//                    //4.1、mutation同步(随意)
+//                    //this.$store.commit('decrement1');
+//                    //4.2、action异步(随意)
+//                    this.$store.dispatch('decrementAsync');
+//                })
+                //action组合-同步化（只需要调用后者，不需要调用前者）
+                this.$store.dispatch('actionB')
             },
             decrement () {
                 // this.$store.commit('decrement', {amount: 2})
