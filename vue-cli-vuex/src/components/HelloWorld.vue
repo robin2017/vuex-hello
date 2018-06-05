@@ -46,7 +46,7 @@
 //                    //4.2、action异步(随意)
 //                    this.$store.dispatch('decrementAsync');
 //                })
-                //action组合-同步化（只需要调用后者，不需要调用前者）
+                //5、action组合-同步化（只需要调用后者，不需要调用前者）
                 this.$store.dispatch('actionB')
             },
             decrement () {

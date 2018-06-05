@@ -6,9 +6,26 @@ import App from './App'
 import router from './router'
 Vue.use(Vuex);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
+//模块都是普通对象，在调用处还要import
+const moduleA = {
+    state: {
+        stateAvar: 1
+    }
+};
+const moduleB = {
+    state: {
+        stateBvar: 2
+    }
+};
+//vuex的实例只有一个
 const store = new Vuex.Store({
+    //模块可以有很多个
+    modules: {
+        a: moduleA,
+        b: moduleB
+    },
     state: {
         count: 0
     },
